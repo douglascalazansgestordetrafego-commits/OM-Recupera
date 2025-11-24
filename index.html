@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OM Recupera - Olga Magalhães</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        olive: {
+                            50: '#f7f9f5',
+                            100: '#eef3eb',
+                            200: '#dbe7d4',
+                            300: '#bcd4b0',
+                            400: '#95ba83',
+                            500: '#739e5e', 
+                            600: '#587d45', // Principal
+                            700: '#466338',
+                            800: '#394f2f',
+                            900: '#2f4128',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f0f2ec;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(115, 158, 94, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(88, 125, 69, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Esconder scrollbar mas permitir rolagem */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center py-8 px-4 text-gray-800">
+
+    <!-- Container Principal (Largura Mobile) -->
+    <main class="w-full max-w-md flex flex-col gap-5">
+
+        <!-- Header do Perfil -->
+        <header class="text-center flex flex-col items-center animate-float">
+            <div class="relative group">
+                <!-- Avatar Atualizado com Upload -->
+                <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg mb-4 overflow-hidden bg-olive-100 relative cursor-pointer group" onclick="document.getElementById('avatarUpload').click()" title="Clique para alterar a foto">
+                    <!-- Imagem com ID para manipulação via JS -->
+                    <img id="avatarImage" 
+                         src="avatar.jpeg" 
+                         onerror="this.src='https://ui-avatars.com/api/?name=Olga+Magalhaes&background=587d45&color=fff&size=128'" 
+                         alt="Avatar Olga Magalhães" 
+                         class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-70">
+                    
+                    <!-- Ícone de Câmera (Overlay que aparece ao passar o mouse/clicar) -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <i class="fas fa-camera text-white text-3xl drop-shadow-lg"></i>
+                    </div>
+                </div>
+
+                <!-- Input de Arquivo Oculto -->
+                <input type="file" id="avatarUpload" accept="image/*" class="hidden" onchange="updateAvatar(this)">
+
+                <div class="absolute bottom-6 right-1 bg-green-500 w-6 h-6 rounded-full border-2 border-white animate-pulse-slow pointer-events-none" title="Online"></div>
+            </div>
+            
+            <h1 class="text-2xl font-serif font-bold text-olive-900 leading-tight">OM Recupera</h1>
+            <p class="text-olive-600 font-medium text-sm mt-1">Olga Magalhães</p>
+            <p class="text-gray-500 text-sm mt-2 max-w-[280px]">Equilíbrio, alívio e recuperação através de técnicas terapêuticas.</p>
+        </header>
+
+        <!-- Botão Principal (Destaque) -->
+        <a href="https://wa.me/5581993899811?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" 
+           class="group bg-olive-600 hover:bg-olive-700 text-white p-1 rounded-2xl shadow-lg shadow-olive-200 transition-all transform hover:scale-[1.02] active:scale-95">
+            <div class="flex items-center justify-between px-6 py-4 border border-olive-500/30 rounded-xl bg-olive-600">
+                <div class="flex flex-col text-left">
+                    <span class="text-xs font-medium text-olive-100 uppercase tracking-wider mb-1">Agendamento</span>
+                    <span class="font-bold text-lg">Chamar no WhatsApp</span>
+                </div>
+                <div class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-olive-600 transition-colors">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </div>
+            </div>
+        </a>
+
+        <!-- Grid de Serviços (Bento Grid Style) -->
+        <section class="grid grid-cols-2 gap-3">
+            <!-- Card 1 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-circle-notch text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Ventosaterapia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Alívio imediato</p>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-running text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Liberação Miofascial</h3>
+                    <p class="text-xs text-gray-500 mt-1">Mobilidade</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-spa text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Massagem Relaxante</h3>
+                    <p class="text-xs text-gray-500 mt-1">Anti-estresse</p>
+                </div>
+            </div>
+
+            <!-- Card 4 (Link Avaliação) -->
+            <a href="https://wa.me/5581993899811?text=Quero%20uma%20avaliação." class="bg-olive-100 rounded-2xl p-4 flex flex-col justify-between h-32 border border-olive-200 hover:bg-olive-200 transition-colors cursor-pointer">
+                <div class="flex justify-between items-start">
+                    <i class="fas fa-clipboard-check text-olive-700 text-2xl"></i>
+                    <i class="fas fa-arrow-right text-olive-400 text-xs"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-olive-900 text-sm">Avaliação Individual</h3>
+                    <p class="text-xs text-olive-600 mt-1">Agendar agora</p>
+                </div>
+            </a>
+        </section>
+
+        <!-- Localização Expansível -->
+        <a href="https://maps.google.com/?q=Rua+Martins+Afonso+369+São+Francisco" target="_blank" class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center gap-4 group">
+            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fas fa-map-marker-alt text-lg"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-bold text-gray-800">Academia Músculo em Boa Forma</h3>
+                <p class="text-xs text-gray-500 mt-1">Rua Martins Afonso, 369 – São Francisco</p>
+            </div>
+            <i class="fas fa-chevron-right text-gray-300"></i>
+        </a>
+
+        <!-- Carrossel de Fotos (Estilo Stories) -->
+        <div class="space-y-3">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Galeria & Espaço</h3>
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x">
+                <!-- Foto 1 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Ventosa</span>
+                    </div>
+                </div>
+                <!-- Foto 2 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Espaço</span>
+                    </div>
+                </div>
+                <!-- Foto 3 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Massagem</span>
+                    </div>
+                </div>
+                <!-- Foto 4 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1584362917165-526a968579e8?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Material</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Informativo (Acordeão Visual) -->
+        <div class="glass-card rounded-2xl p-5 shadow-sm space-y-4">
+            <!-- Horários -->
+            <div class="flex items-start gap-4">
+                <div class="mt-1 text-olive-500"><i class="far fa-clock"></i></div>
+                <div class="text-sm">
+                    <p class="font-bold text-gray-800">Horário de Funcionamento</p>
+                    <div class="flex justify-between text-gray-600 mt-1">
+                        <span>Seg a Sex</span>
+                        <span>08h - 19h</span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Sábado</span>
+                        <span>08h - 12h</span>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="border-gray-200">
+            
+            <!-- Pagamento -->
+            <div class="flex items-center gap-4">
+                <div class="text-olive-500"><i class="far fa-credit-card"></i></div>
+                <div class="text-sm flex-1">
+                    <p class="font-bold text-gray-800">Pagamento</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Pix</span>
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Cartão</span>
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Dinheiro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-4 pb-4">
+            <button onclick="shareLink()" class="text-olive-600 text-sm font-medium hover:text-olive-800 transition-colors flex items-center justify-center gap-2 mx-auto">
+                <i class="fas fa-share-alt"></i> Compartilhar Cartão
+            </button>
+        </footer>
+
+    </main>
+
+    <!-- Script para Compartilhar e Gerenciar Avatar -->
+    <script>
+        // 1. Carregar avatar salvo no LocalStorage ao abrir a página
+        window.addEventListener('load', function() {
+            const savedAvatar = localStorage.getItem('om_avatar_image');
+            if (savedAvatar) {
+                document.getElementById('avatarImage').src = savedAvatar;
+            }
+        });
+
+        // 2. Função para atualizar o avatar quando o usuário escolhe uma foto
+        function updateAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const result = e.target.result;
+                    
+                    // Atualiza a imagem na tela imediatamente
+                    document.getElementById('avatarImage').src = result;
+                    
+                    // Tenta salvar no navegador para não perder ao recarregar
+                    try {
+                        localStorage.setItem('om_avatar_image', result);
+                    } catch (error) {
+                        console.log('Imagem muito grande para salvar no armazenamento persistente, mas será exibida nesta sessão.');
+                    }
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function shareLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'OM Recupera - Olga Magalhães',
+                    text: 'Agende seu horário e recupere seu equilíbrio.',
+                    url: window.location.href,
+                })
+                .catch((error) => console.log('Erro ao compartilhar', error));
+            } else {
+                // Fallback: Copiar para clipboard
+                const dummy = document.createElement('input'),
+                text = window.location.href;
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert("Link copiado para a área de transferência!");
+            }
+        }
+    </script>
+</body>
+</html>
