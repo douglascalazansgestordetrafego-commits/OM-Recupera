@@ -84,24 +84,13 @@
 
         <!-- Header do Perfil -->
         <header class="text-center flex flex-col items-center animate-float">
-            <div class="relative group">
-                <!-- Avatar Atualizado com Upload -->
-                <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg mb-4 overflow-hidden bg-olive-100 relative cursor-pointer group" onclick="document.getElementById('avatarUpload').click()" title="Clique para alterar a foto">
-                    <!-- Imagem com ID para manipulação via JS -->
-                    <img id="avatarImage" 
-                         src="avatar.jpeg" 
-                         onerror="this.src='https://ui-avatars.com/api/?name=Olga+Magalhaes&background=587d45&color=fff&size=128'" 
+            <div class="relative">
+                <!-- Avatar Fixo -->
+                <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg mb-4 overflow-hidden bg-olive-100 relative">
+                    <img src="https://i.imgur.com/TAFCP58.jpeg" 
                          alt="Avatar Olga Magalhães" 
-                         class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-70">
-                    
-                    <!-- Ícone de Câmera (Overlay que aparece ao passar o mouse/clicar) -->
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <i class="fas fa-camera text-white text-3xl drop-shadow-lg"></i>
-                    </div>
+                         class="w-full h-full object-cover">
                 </div>
-
-                <!-- Input de Arquivo Oculto -->
-                <input type="file" id="avatarUpload" accept="image/*" class="hidden" onchange="updateAvatar(this)">
 
                 <div class="absolute bottom-6 right-1 bg-green-500 w-6 h-6 rounded-full border-2 border-white animate-pulse-slow pointer-events-none" title="Online"></div>
             </div>
@@ -257,39 +246,8 @@
 
     </main>
 
-    <!-- Script para Compartilhar e Gerenciar Avatar -->
+    <!-- Script Simples para Compartilhar -->
     <script>
-        // 1. Carregar avatar salvo no LocalStorage ao abrir a página
-        window.addEventListener('load', function() {
-            const savedAvatar = localStorage.getItem('om_avatar_image');
-            if (savedAvatar) {
-                document.getElementById('avatarImage').src = savedAvatar;
-            }
-        });
-
-        // 2. Função para atualizar o avatar quando o usuário escolhe uma foto
-        function updateAvatar(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const result = e.target.result;
-                    
-                    // Atualiza a imagem na tela imediatamente
-                    document.getElementById('avatarImage').src = result;
-                    
-                    // Tenta salvar no navegador para não perder ao recarregar
-                    try {
-                        localStorage.setItem('om_avatar_image', result);
-                    } catch (error) {
-                        console.log('Imagem muito grande para salvar no armazenamento persistente, mas será exibida nesta sessão.');
-                    }
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         function shareLink() {
             if (navigator.share) {
                 navigator.share({
