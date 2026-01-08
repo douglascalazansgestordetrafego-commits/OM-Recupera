@@ -1,43 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tudo Com Laser | Links</title>
+    <title>OM Recupera - Olga Magalhães</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Ícones -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Configuração de Cores -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
                     colors: {
-                        brand: {
-                            bg: '#FAFAFA',              
-                            text: '#1A1A1A',            
-                            laserIntenso: '#FF4500',    
-                            goldVibrante: '#F5B84B',    
-                            goldMedio: '#D88A1F',       
-                            orangeMetal: '#B86514',     
-                            brownDark: '#3A1E0B'        
+                        olive: {
+                            50: '#f7f9f5',
+                            100: '#eef3eb',
+                            200: '#dbe7d4',
+                            300: '#bcd4b0',
+                            400: '#95ba83',
+                            500: '#739e5e', 
+                            600: '#587d45', // Principal
+                            700: '#466338',
+                            800: '#394f2f',
+                            900: '#2f4128',
                         }
                     },
-                    boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(58, 30, 11, 0.08)',
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }
                 }
             }
@@ -46,321 +53,215 @@
 
     <style>
         body {
-            background-color: #FAFAFA;
-            color: #1A1A1A;
-            background-image: radial-gradient(#D88A1F 0.5px, transparent 0.5px), radial-gradient(#D88A1F 0.5px, #FAFAFA 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            background-blend-mode: multiply;
-            opacity: 0.98;
+            background-color: #f0f2ec;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(115, 158, 94, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(88, 125, 69, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
-        .main-card { opacity: 1; }
-
-        /* --- SISTEMA DO LASER --- */
-        .laser-wrapper {
-            position: relative;
-            display: inline-block;
-            padding: 2px;
+        /* Esconder scrollbar mas permitir rolagem */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        .laser-beam {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: #FF4500;
-            border-radius: 2px;
-            box-shadow: 0 0 5px #FFD700, 0 0 10px #FF4500, 0 0 20px #FF0000;
-            z-index: 50;
-            opacity: 0;
-            pointer-events: none;
-            transition: left 0.04s linear, top 0.04s linear;
-        }
-        
-        #beam-title { width: 3px; }
-        #beam-subtitle { width: 2px; }
-
-        .laser-beam::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: -8px;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #FFF 20%, #FF8C00 60%, transparent 70%);
-            animation: burnSpark 0.1s infinite;
-        }
-
-        @keyframes burnSpark {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.3); opacity: 1; }
-        }
-
-        .char-invisible { color: transparent; text-shadow: none; }
-        .char-burned { animation: coolDownEffect 0.6s ease-out forwards; }
-
-        @keyframes coolDownEffect {
-            0% { color: #FFFFFF; text-shadow: 0 0 10px #FF4500, 0 0 20px #FFD700; }
-            100% { color: var(--target-color); text-shadow: none; }
-        }
-
-        /* --- ANIMAÇÕES PULSANTES (NOVAS) --- */
-        
-        /* Pulsação Dourada Forte (WhatsApp) */
-        @keyframes pulse-ring-orange {
-            0% { box-shadow: 0 0 0 0 rgba(245, 184, 75, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(245, 184, 75, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(245, 184, 75, 0); }
-        }
-
-        .btn-pulse-primary {
-            animation: pulse-ring-orange 2s infinite;
-        }
-
-        /* Respiração Suave (Redes Sociais) */
-        @keyframes border-breath {
-            0% { border-color: #E5E5E5; }
-            50% { border-color: #F5B84B; box-shadow: 0 4px 15px -3px rgba(245, 184, 75, 0.3); }
-            100% { border-color: #E5E5E5; }
-        }
-
-        .btn-pulse-secondary {
-            animation: border-breath 3s infinite ease-in-out;
-            animation-delay: 1s; /* Começa um pouco depois do principal */
-        }
-
-        /* Botão Base */
-        .btn-premium {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #E5E5E5;
-        }
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            border-color: #D88A1F !important; /* Força a cor no hover */
-            animation: none; /* Para a pulsação ao passar o mouse para focar */
-            box-shadow: 0 10px 25px -5px rgba(216, 138, 31, 0.25);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6">
+<body class="min-h-screen flex justify-center py-8 px-4 text-gray-800">
 
-    <!-- Container Principal -->
-    <main class="main-card w-full max-w-[420px] bg-white rounded-[32px] shadow-soft p-8 relative overflow-hidden border border-gray-100">
-        
-        <!-- Barra Topo -->
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-goldVibrante via-brand-orangeMetal to-brand-goldVibrante"></div>
+    <!-- Container Principal (Largura Mobile) -->
+    <main class="w-full max-w-md flex flex-col gap-5">
 
-        <!-- Header -->
-        <header class="flex flex-col items-center text-center mb-6 relative">
-            
-            <!-- Logo -->
-            <div class="relative group z-10">
-                <div class="absolute -inset-1 bg-gradient-to-r from-brand-goldVibrante to-brand-orangeMetal rounded-full blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                <div class="relative w-28 h-28 bg-white rounded-full flex items-center justify-center mb-5 shadow-lg border-2 border-brand-goldMedio overflow-hidden p-1">
-                    <img src="https://i.imgur.com/rbruqHc.png" alt="Logo Tudo Com Laser" class="w-full h-full object-cover rounded-full">
+        <!-- Header do Perfil -->
+        <header class="text-center flex flex-col items-center animate-float">
+            <div class="relative">
+                <!-- Avatar Fixo -->
+                <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg mb-4 overflow-hidden bg-olive-100 relative">
+                    <img src="https://i.imgur.com/TAFCP58.jpeg" 
+                         alt="Avatar Olga Magalhães" 
+                         class="w-full h-full object-cover">
                 </div>
-            </div>
 
-            <!-- TÍTULO ANIMADO -->
-            <div id="wrapper-title" class="laser-wrapper mt-2">
-                <div id="beam-title" class="laser-beam"></div>
-                <h1 id="text-title" class="font-serif text-3xl sm:text-3xl font-bold tracking-wide leading-tight flex flex-wrap justify-center gap-x-2"></h1>
+                <div class="absolute bottom-6 right-1 bg-green-500 w-6 h-6 rounded-full border-2 border-white animate-pulse-slow pointer-events-none" title="Online"></div>
             </div>
             
-            <!-- Divisor -->
-            <div class="flex items-center gap-2 my-4 opacity-50">
-                <div class="h-[1px] w-8 bg-brand-goldMedio"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-brand-goldVibrante"></div>
-                <div class="h-[1px] w-8 bg-brand-goldMedio"></div>
-            </div>
-
-            <!-- SUBTÍTULO ANIMADO -->
-            <div id="wrapper-subtitle" class="laser-wrapper">
-                <div id="beam-subtitle" class="laser-beam"></div>
-                <p id="text-subtitle" class="font-sans text-sm tracking-wide font-light uppercase px-2 leading-relaxed"></p>
-            </div>
-
+            <h1 class="text-2xl font-serif font-bold text-olive-900 leading-tight">OM Recupera</h1>
+            <p class="text-olive-600 font-medium text-sm mt-1">Olga Magalhães</p>
+            <p class="text-gray-500 text-sm mt-2 max-w-[280px]">Equilíbrio, alívio e recuperação através de técnicas terapêuticas.</p>
         </header>
 
-        <!-- Área de Botões (CTA) -->
-        <div class="flex flex-col w-full px-1 gap-4 opacity-0 transition-opacity duration-1000" id="cta-area">
+        <!-- Botão Principal (Destaque) -->
+        <a href="https://wa.me/5581993899811?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" 
+           class="group bg-olive-600 hover:bg-olive-700 text-white p-1 rounded-2xl shadow-lg shadow-olive-200 transition-all transform hover:scale-[1.02] active:scale-95">
+            <div class="flex items-center justify-between px-6 py-4 border border-olive-500/30 rounded-xl bg-olive-600">
+                <div class="flex flex-col text-left">
+                    <span class="text-xs font-medium text-olive-100 uppercase tracking-wider mb-1">Agendamento</span>
+                    <span class="font-bold text-lg">Chamar no WhatsApp</span>
+                </div>
+                <div class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-olive-600 transition-colors">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </div>
+            </div>
+        </a>
+
+        <!-- Grid de Serviços (Bento Grid Style) -->
+        <section class="grid grid-cols-2 gap-3">
+            <!-- Card 1 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-circle-notch text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Ventosaterapia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Alívio imediato</p>
+                </div>
+            </div>
             
-            <!-- Botão WhatsApp (Principal - Pulsação Dourada) -->
-            <a href="https://wa.me/5581992064543" target="_blank" class="btn-premium btn-pulse-primary group w-full bg-white rounded-xl p-4 flex items-center justify-between shadow-md hover:border-brand-orangeMetal relative overflow-hidden">
-                <div class="absolute inset-0 bg-brand-goldVibrante opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
-                <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm bg-[#25D366]">
-                        <i class="fa-brands fa-whatsapp text-2xl text-white"></i>
-                    </div>
-                    <div class="text-left">
-                        <span class="block font-serif font-bold text-lg text-brand-brownDark leading-tight">WhatsApp</span>
-                        <span class="block text-[10px] text-brand-orangeMetal uppercase tracking-wider font-semibold">Orçamento Rápido</span>
-                    </div>
+            <!-- Card 2 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-running text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Liberação Miofascial</h3>
+                    <p class="text-xs text-gray-500 mt-1">Mobilidade</p>
                 </div>
-                <div class="relative z-10 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-brand-orangeMetal group-hover:border-brand-orangeMetal transition-all">
-                    <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-white transition-colors text-sm"></i>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between h-32 shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-spa text-olive-500 text-2xl"></i>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm">Massagem Relaxante</h3>
+                    <p class="text-xs text-gray-500 mt-1">Anti-estresse</p>
+                </div>
+            </div>
+
+            <!-- Card 4 (Link Avaliação) -->
+            <a href="https://wa.me/5581993899811?text=Quero%20uma%20avaliação." class="bg-olive-100 rounded-2xl p-4 flex flex-col justify-between h-32 border border-olive-200 hover:bg-olive-200 transition-colors cursor-pointer">
+                <div class="flex justify-between items-start">
+                    <i class="fas fa-clipboard-check text-olive-700 text-2xl"></i>
+                    <i class="fas fa-arrow-right text-olive-400 text-xs"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-olive-900 text-sm">Avaliação Individual</h3>
+                    <p class="text-xs text-olive-600 mt-1">Agendar agora</p>
                 </div>
             </a>
+        </section>
 
-            <!-- Botão Instagram (Secundário - Respiração Suave) -->
-            <a href="https://www.instagram.com/tudocomlaser?igsh=MXRuZnF4cjg2cmlsNw==" target="_blank" class="btn-premium btn-pulse-secondary group w-full bg-white rounded-xl p-4 flex items-center justify-between shadow-sm hover:border-brand-orangeMetal relative overflow-hidden">
-                <div class="absolute inset-0 bg-brand-goldVibrante opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
-                <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
-                        <i class="fa-brands fa-instagram text-2xl text-white"></i>
-                    </div>
-                    <div class="text-left">
-                        <span class="block font-serif font-bold text-lg text-brand-brownDark leading-tight">Instagram</span>
-                        <span class="block text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Portfólio & Fotos</span>
-                    </div>
-                </div>
-                <div class="relative z-10 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-brand-orangeMetal group-hover:border-brand-orangeMetal transition-all">
-                    <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-white transition-colors text-sm"></i>
-                </div>
-            </a>
+        <!-- Localização Expansível -->
+        <a href="https://maps.google.com/?q=Rua+Martins+Afonso+369+São+Francisco" target="_blank" class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex items-center gap-4 group">
+            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fas fa-map-marker-alt text-lg"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-bold text-gray-800">Academia Músculo em Boa Forma</h3>
+                <p class="text-xs text-gray-500 mt-1">Rua Martins Afonso, 369 – São Francisco</p>
+            </div>
+            <i class="fas fa-chevron-right text-gray-300"></i>
+        </a>
 
-            <!-- Botão TikTok (Secundário - Respiração Suave) -->
-            <a href="https://www.tiktok.com/@tudocomlaser?_r=1&_t=ZG-92t6g1NW2U4" target="_blank" class="btn-premium btn-pulse-secondary group w-full bg-white rounded-xl p-4 flex items-center justify-between shadow-sm hover:border-brand-orangeMetal relative overflow-hidden">
-                <div class="absolute inset-0 bg-brand-goldVibrante opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
-                <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm bg-black">
-                        <i class="fa-brands fa-tiktok text-2xl text-white"></i>
-                    </div>
-                    <div class="text-left">
-                        <span class="block font-serif font-bold text-lg text-brand-brownDark leading-tight">TikTok</span>
-                        <span class="block text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Vídeos de Produção</span>
+        <!-- Carrossel de Fotos (Estilo Stories) -->
+        <div class="space-y-3">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Galeria & Espaço</h3>
+            <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x">
+                <!-- Foto 1 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Ventosa</span>
                     </div>
                 </div>
-                <div class="relative z-10 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-brand-orangeMetal group-hover:border-brand-orangeMetal transition-all">
-                    <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-white transition-colors text-sm"></i>
+                <!-- Foto 2 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Espaço</span>
+                    </div>
                 </div>
-            </a>
+                <!-- Foto 3 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Massagem</span>
+                    </div>
+                </div>
+                <!-- Foto 4 -->
+                <div class="min-w-[140px] h-[200px] rounded-2xl overflow-hidden shadow-md snap-center relative">
+                    <img src="https://images.unsplash.com/photo-1584362917165-526a968579e8?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                        <span class="text-white text-xs font-bold">Material</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Card Informativo (Acordeão Visual) -->
+        <div class="glass-card rounded-2xl p-5 shadow-sm space-y-4">
+            <!-- Agendamento (Novo) -->
+            <div class="flex items-center gap-4">
+                <div class="text-olive-500"><i class="far fa-calendar-check text-xl"></i></div>
+                <div class="text-sm flex-1">
+                    <p class="font-bold text-gray-800">Agendamento</p>
+                    <p class="text-gray-600 text-xs mt-1">Consulte disponibilidade via WhatsApp</p>
+                </div>
+                <a href="https://wa.me/5581993899811?text=Olá,%20gostaria%20de%20saber%20a%20disponibilidade%20de%20horários." class="text-olive-600 hover:text-olive-800">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            
+            <hr class="border-gray-200">
+            
+            <!-- Pagamento -->
+            <div class="flex items-center gap-4">
+                <div class="text-olive-500"><i class="far fa-credit-card text-xl"></i></div>
+                <div class="text-sm flex-1">
+                    <p class="font-bold text-gray-800">Pagamento</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Pix</span>
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Cartão</span>
+                        <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-600">Dinheiro</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
-        <footer class="mt-8 text-center border-t border-gray-100 pt-6 opacity-0 transition-opacity duration-1000" id="footer-area">
-            <button onclick="shareLink()" class="flex items-center justify-center gap-2 mx-auto hover:text-brand-orangeMetal transition-colors text-xs font-sans uppercase tracking-widest px-4 py-2 rounded-full hover:bg-gray-50 text-gray-400">
-                <i class="fa-solid fa-share-nodes"></i> Compartilhar
+        <footer class="text-center mt-4 pb-4">
+            <button onclick="shareLink()" class="text-olive-600 text-sm font-medium hover:text-olive-800 transition-colors flex items-center justify-center gap-2 mx-auto">
+                <i class="fas fa-share-alt"></i> Compartilhar Cartão
             </button>
-            <p class="font-serif text-[10px] text-brand-brownDark opacity-60 mt-2">
-                © 2024 Tudo Com Laser
-            </p>
         </footer>
-        
+
     </main>
 
-    <!-- Notificação -->
-    <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 bg-white text-brand-brownDark px-6 py-3 rounded-lg shadow-xl border-l-4 border-brand-goldVibrante flex items-center gap-3 transition-all duration-500 -translate-y-24 opacity-0 z-50 font-sans text-sm w-max max-w-[90%]">
-        <i class="fa-solid fa-check text-brand-orangeMetal"></i>
-        <span>Link copiado!</span>
-    </div>
-
-    <!-- SCRIPT DE CORTE REAL SEQUENCIAL -->
+    <!-- Script Simples para Compartilhar -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const ctaArea = document.getElementById('cta-area');
-            const footerArea = document.getElementById('footer-area');
-
-            const titleData = {
-                wrapperId: 'wrapper-title',
-                textId: 'text-title',
-                beamId: 'beam-title',
-                speed: 80, 
-                words: [
-                    { text: "Tudo", color: "#3A1E0B" },
-                    { text: "Com", color: "#3A1E0B" },
-                    { text: "Laser", color: "#B86514" }
-                ]
-            };
-
-            const subtitleData = {
-                wrapperId: 'wrapper-subtitle',
-                textId: 'text-subtitle',
-                beamId: 'beam-subtitle',
-                speed: 40, 
-                words: "Corte & Gravação de Precisão".split(" ").map(w => ({ text: w, color: "#6B7280" }))
-            };
-
-            function prepareTextHTML(data) {
-                const container = document.getElementById(data.textId);
-                data.words.forEach((wordData, index) => {
-                    const wordSpan = document.createElement('span');
-                    wordSpan.style.whiteSpace = 'nowrap';
-                    wordData.text.split('').forEach(char => {
-                        const charSpan = document.createElement('span');
-                        charSpan.textContent = char;
-                        charSpan.className = 'char-invisible relative inline-block';
-                        charSpan.style.setProperty('--target-color', wordData.color);
-                        wordSpan.appendChild(charSpan);
-                    });
-                    container.appendChild(wordSpan);
-                    if (index < data.words.length - 1) {
-                        const space = document.createElement('span');
-                        space.innerHTML = '&nbsp;';
-                        container.appendChild(space);
-                    }
-                });
-            }
-
-            async function runLaserSequence(data) {
-                const wrapper = document.getElementById(data.wrapperId);
-                const beam = document.getElementById(data.beamId);
-                const chars = wrapper.querySelectorAll('.char-invisible');
-                if(chars.length === 0) return;
-
-                beam.style.opacity = '1';
-                for (let i = 0; i < chars.length; i++) {
-                    const char = chars[i];
-                    const wrapperRect = wrapper.getBoundingClientRect();
-                    const charRect = char.getBoundingClientRect();
-
-                    const relativeTop = charRect.top - wrapperRect.top;
-                    const relativeLeft = charRect.left - wrapperRect.left;
-                    
-                    beam.style.height = (charRect.height * 1.3) + 'px';
-                    beam.style.top = (relativeTop - (charRect.height * 0.15)) + 'px';
-                    beam.style.left = (relativeLeft + charRect.width) + 'px';
-
-                    char.className = 'char-burned font-bold';
-                    await new Promise(r => setTimeout(r, data.speed));
-                }
-                beam.style.opacity = '0';
-            }
-
-            async function startShow() {
-                prepareTextHTML(titleData);
-                prepareTextHTML(subtitleData);
-
-                await document.fonts.ready;
-                await new Promise(r => setTimeout(r, 600));
-                await runLaserSequence(titleData);
-                await new Promise(r => setTimeout(r, 200));
-                await runLaserSequence(subtitleData);
-
-                ctaArea.style.opacity = '1';
-                footerArea.style.opacity = '1';
-            }
-
-            setTimeout(() => {
-                document.querySelectorAll('.char-invisible').forEach(c => c.style.color = 'var(--target-color)');
-                ctaArea.style.opacity = '1';
-                footerArea.style.opacity = '1';
-            }, 6000);
-
-            startShow();
-        });
-
         function shareLink() {
-            const url = window.location.href;
             if (navigator.share) {
-                navigator.share({ title: 'Tudo Com Laser', url: url }).catch(console.error);
+                navigator.share({
+                    title: 'OM Recupera - Olga Magalhães',
+                    text: 'Agende seu horário e recupere seu equilíbrio.',
+                    url: window.location.href,
+                })
+                .catch((error) => console.log('Erro ao compartilhar', error));
             } else {
-                navigator.clipboard.writeText(url).then(() => {
-                    const toast = document.getElementById("toast");
-                    toast.classList.remove("-translate-y-24", "opacity-0");
-                    setTimeout(() => { toast.classList.add("-translate-y-24", "opacity-0"); }, 3000);
-                });
+                // Fallback: Copiar para clipboard
+                const dummy = document.createElement('input'),
+                text = window.location.href;
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert("Link copiado para a área de transferência!");
             }
         }
     </script>
